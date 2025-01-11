@@ -40,14 +40,14 @@ const updateNews = async (req) => {
     { _id: id },
     { category, title, content, author, image, source, status }
   );
-  if (!result) throw new notFoundError("todo not found");
+  if (!result) throw new notFoundError("News not found");
   return result;
 };
 
 const deleteNews = async (req) => {
   const { id } = req.params;
   const result = await News.findOneAndDelete({ _id: id });
-  if (!result) throw new notFoundError("todo not found");
+  if (!result) throw new notFoundError("News not found");
   return result;
 };
 

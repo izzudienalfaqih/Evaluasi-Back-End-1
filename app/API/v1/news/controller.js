@@ -39,7 +39,7 @@ const update = async (req, res, next) => {
     await updateNews(req);
     res
       .status(StatusCodes.OK)
-      .json({ status: "Success", message: "update todo successfully" });
+      .json({ status: "Success", message: "update news successfully" });
   } catch (error) {
     next(error);
   }
@@ -50,7 +50,7 @@ const destroy = async (req, res, next) => {
     await deleteNews(req);
     res
       .status(StatusCodes.OK)
-      .json({ status: "Success", message: "delete todo successfully" });
+      .json({ status: "Success", message: "delete news successfully" });
   } catch (error) {
     next(error);
   }
