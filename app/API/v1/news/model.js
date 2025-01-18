@@ -1,10 +1,11 @@
 const { Schema, Types, model } = require("mongoose");
 
 const newsSchema = Schema({
-  // userid: {
-  //   type: Types.ObjectId,
-  //   required: true,
-  // },
+  userid: {
+    type: Types.ObjectId,
+    ref: "Pengguna",
+    required: true,
+  },
   title: {
     type: String,
     minlength: [3, "title min 3 character"],

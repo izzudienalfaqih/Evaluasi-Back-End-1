@@ -9,7 +9,7 @@ const {
 
 const index = async (req, res, next) => {
   try {
-    const result = await getAllCategory();
+    const result = await getAllCategory(req);
     res.status(StatusCodes.OK).json({ status: "success", categories: result });
   } catch (error) {
     next(error);

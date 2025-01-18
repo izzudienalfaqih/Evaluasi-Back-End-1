@@ -9,8 +9,8 @@ const {
 
 const index = async (req, res, next) => {
   try {
-    const todos = await getAllTodo();
-    res.status(StatusCodes.OK).json({ status: "success", todos });
+    const result = await getAllTodo(req);
+    res.status(StatusCodes.OK).json({ status: "success", data: result });
   } catch (error) {
     next(error);
   }

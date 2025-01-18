@@ -9,8 +9,8 @@ const {
 
 const index = async (req, res, next) => {
   try {
-    const news = await getAllNews();
-    res.status(StatusCodes.OK).json({ status: "success", news });
+    const result = await getAllNews(req);
+    res.status(StatusCodes.OK).json({ status: "success", data: result });
   } catch (error) {
     next(error);
   }
@@ -19,7 +19,7 @@ const index = async (req, res, next) => {
 const create = async (req, res, next) => {
   try {
     const news = await createNews(req);
-    res.status(StatusCodes.OK).json({ status: "success", news });
+    res.status(StatusCodes.CREATED).json({ status: "success", news });
   } catch (error) {
     next(error);
   }
