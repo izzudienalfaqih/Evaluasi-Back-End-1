@@ -4,7 +4,9 @@ const { checkingCategory } = require("./categories");
 
 const getAllNews = async (req) => {
   const { page, limit, keyword, category, author, status } = req.query;
-  const condition = { userid: req.pengguna.userid };
+  const condition = {
+    // userid: req.pengguna.userid,
+  };
 
   // untuk searching
   if (keyword) condition["title"] = { $regex: keyword, $options: "i" };
@@ -47,7 +49,7 @@ const getOneNews = async (req) => {
   const { id } = req.params;
   const result = await News.findOne({
     _id: id,
-    userid: req.pengguna.userid,
+    // userid: req.pengguna.userid,
   }).populate({
     path: "category",
     select: "name",

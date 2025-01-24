@@ -3,6 +3,10 @@ const { BadRequestError } = require("../../error");
 const bcrypt = require("bcryptjs");
 const { createJWT } = require("../../utils/jwt");
 const { createTokenUser } = require("../../utils");
+const {
+  uploadToCloudinary,
+  deleteFileFromCloudinary,
+} = require("../../utils/cloudinary");
 
 const register = async (req) => {
   const { username, password, password_confirm } = req.body;
@@ -41,6 +45,17 @@ const getProfile = async (req) => {
 
 const updateProfile = async (req) => {
   const { username } = req.body;
+
+  if (req.file) {
+    const file = await uploadToCloudinary(req.file.buffer);
+    const result = await User.findOneAndUpdate(
+      { _id: req.user.userid },
+      { username, avatar: { path: file.public_id, url: file.secure_url } }
+    );
+    if (result.avatar.path)
+      await deleteFileFromCloudinary(result?.avatar?.path, "image");
+    return result;
+  }
 
   const result = await User.findOneAndUpdate(
     { _id: req.user.userid },

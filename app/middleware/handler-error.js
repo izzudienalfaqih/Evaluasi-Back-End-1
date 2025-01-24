@@ -1,8 +1,8 @@
 const { StatusCodes } = require("http-status-codes");
 
 const handlerErrorMiddleware = (err, req, res, next) => {
-  console.log(err.message);
-  console.log(err.statusCode);
+  // console.log(err.message);
+  // console.log(err.statusCode);
   const customError = {
     statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
     message: err.message || "Something went wrong please try again later",
@@ -15,6 +15,11 @@ const handlerErrorMiddleware = (err, req, res, next) => {
 
   if (err.name === "JsonWebTokenError") {
     customError.statusCode = StatusCodes.UNAUTHORIZED;
+    customError.message = err.message;
+  }
+
+  if (err.name === "MulterError") {
+    customError.statusCode = StatusCodes.BAD_REQUEST;
     customError.message = err.message;
   }
 
